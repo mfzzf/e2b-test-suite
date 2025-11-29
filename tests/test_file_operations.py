@@ -1,11 +1,12 @@
 """
 文件操作测试 - 上传、下载、读写
 """
-from dotenv import load_dotenv
-load_dotenv()
-
 import os
 import tempfile
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+# 确保环境变量已加载后再导入 e2b
 from e2b_code_interpreter import Sandbox
 
 

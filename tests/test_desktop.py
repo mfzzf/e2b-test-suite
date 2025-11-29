@@ -1,9 +1,11 @@
 """
 桌面沙箱测试 - VNC 流、应用启动
 """
+import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
+# 确保环境变量已加载后再导入 e2b
 from e2b_desktop import Sandbox
 
 

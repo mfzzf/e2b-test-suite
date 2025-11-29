@@ -4,8 +4,9 @@ OpenAI 集成测试 - 函数调用与代码执行
 import os
 import json
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
+# 确保环境变量已加载后再导入 e2b
 from openai import OpenAI
 from e2b_code_interpreter import Sandbox
 

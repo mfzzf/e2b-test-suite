@@ -2,13 +2,15 @@
 """
 E2B 测试套件运行入口
 """
+import os
 import sys
+
+# 在导入任何 e2b 模块之前加载环境变量
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
 import argparse
 import traceback
-from dotenv import load_dotenv
-
-# 加载环境变量
-load_dotenv()
 
 # 测试模块映射
 TEST_MODULES = {

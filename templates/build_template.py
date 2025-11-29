@@ -1,9 +1,11 @@
 """
 模板构建脚本 - 构建自定义 E2B 模板
 """
+import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
+# 确保环境变量已加载后再导入 e2b
 from e2b import Template, CopyItem, default_build_logger, wait_for_timeout
 
 

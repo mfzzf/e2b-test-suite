@@ -1,9 +1,11 @@
 """
 图表测试 - Matplotlib 图表生成与解析
 """
+import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
+# 确保环境变量已加载后再导入 e2b
 from e2b_code_interpreter import Sandbox
 
 

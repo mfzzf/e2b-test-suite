@@ -1,9 +1,11 @@
 """
 代码执行测试 - Python 代码在沙箱中执行
 """
+import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
+# 确保环境变量已加载后再导入 e2b
 from e2b_code_interpreter import Sandbox
 
 
