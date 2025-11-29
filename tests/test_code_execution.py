@@ -18,15 +18,16 @@ def test_simple_code():
     print("=" * 50)
     
     sbx = Sandbox.create()
-    
-    execution = sbx.run_code("print('hello world')")
-    print(f"输出: {execution.logs}")
-    
-    assert "hello world" in str(execution.logs), "输出不包含预期内容"
-    
-    sbx.kill()
-    print("✓ 简单代码执行测试通过")
-    return True
+    try:
+        execution = sbx.run_code("print('hello world')")
+        print(f"输出: {execution.logs}")
+        
+        assert "hello world" in str(execution.logs), "输出不包含预期内容"
+        
+        print("✓ 简单代码执行测试通过")
+        return True
+    finally:
+        sbx.kill()
 
 
 def test_math_calculation():
@@ -36,20 +37,21 @@ def test_math_calculation():
     print("=" * 50)
     
     sbx = Sandbox.create()
-    
-    code = """
+    try:
+        code = """
 import math
 result = math.sqrt(144) + math.pow(2, 10)
 print(f"计算结果: {result}")
 result
 """
-    execution = sbx.run_code(code)
-    print(f"输出: {execution.logs}")
-    print(f"结果: {execution.results}")
-    
-    sbx.kill()
-    print("✓ 数学计算测试通过")
-    return True
+        execution = sbx.run_code(code)
+        print(f"输出: {execution.logs}")
+        print(f"结果: {execution.results}")
+        
+        print("✓ 数学计算测试通过")
+        return True
+    finally:
+        sbx.kill()
 
 
 def test_data_processing():
@@ -59,20 +61,21 @@ def test_data_processing():
     print("=" * 50)
     
     sbx = Sandbox.create()
-    
-    code = """
+    try:
+        code = """
 data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 avg = sum(data) / len(data)
 max_val = max(data)
 min_val = min(data)
 print(f"平均值: {avg}, 最大值: {max_val}, 最小值: {min_val}")
 """
-    execution = sbx.run_code(code)
-    print(f"输出: {execution.logs}")
-    
-    sbx.kill()
-    print("✓ 数据处理测试通过")
-    return True
+        execution = sbx.run_code(code)
+        print(f"输出: {execution.logs}")
+        
+        print("✓ 数据处理测试通过")
+        return True
+    finally:
+        sbx.kill()
 
 
 def test_error_handling():
@@ -82,19 +85,20 @@ def test_error_handling():
     print("=" * 50)
     
     sbx = Sandbox.create()
-    
-    code = """
+    try:
+        code = """
 # 故意制造错误
 x = 1 / 0
 """
-    execution = sbx.run_code(code)
-    print(f"错误: {execution.error}")
-    
-    assert execution.error is not None, "应该有错误"
-    
-    sbx.kill()
-    print("✓ 错误处理测试通过")
-    return True
+        execution = sbx.run_code(code)
+        print(f"错误: {execution.error}")
+        
+        assert execution.error is not None, "应该有错误"
+        
+        print("✓ 错误处理测试通过")
+        return True
+    finally:
+        sbx.kill()
 
 
 def run_all():

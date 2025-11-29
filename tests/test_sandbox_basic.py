@@ -20,19 +20,20 @@ def test_create_sandbox():
     print("=" * 50)
     
     sbx = Sandbox.create(template="code-interpreter-v1", timeout=100)
-    
-    info = sbx.get_info()
-    print(f"沙箱 ID: {info.sandbox_id}")
-    print(f"模板 ID: {info.template_id}")
-    print(f"创建时间: {info.started_at}")
-    
-    # 列出根目录文件
-    files = sbx.files.list("/")
-    print(f"根目录文件数: {len(files)}")
-    
-    sbx.kill()
-    print("✓ 沙箱创建测试通过")
-    return True
+    try:
+        info = sbx.get_info()
+        print(f"沙箱 ID: {info.sandbox_id}")
+        print(f"模板 ID: {info.template_id}")
+        print(f"创建时间: {info.started_at}")
+        
+        # 列出根目录文件
+        files = sbx.files.list("/")
+        print(f"根目录文件数: {len(files)}")
+        
+        print("✓ 沙箱创建测试通过")
+        return True
+    finally:
+        sbx.kill()
 
 
 def test_sandbox_list():

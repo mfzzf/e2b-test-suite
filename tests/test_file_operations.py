@@ -61,19 +61,20 @@ def test_file_download():
     print("=" * 50)
     
     sbx = Sandbox.create()
-    
-    # 先写入文件
-    test_content = "Test content for download"
-    sbx.files.write("/home/user/download_test.txt", test_content)
-    
-    # 读取文件
-    content = sbx.files.read("/home/user/download_test.txt")
-    assert content == test_content, f"内容不匹配: {content}"
-    print(f"✓ 文件内容: {content}")
-    
-    sbx.kill()
-    print("✓ 文件下载测试通过")
-    return True
+    try:
+        # 先写入文件
+        test_content = "Test content for download"
+        sbx.files.write("/home/user/download_test.txt", test_content)
+        
+        # 读取文件
+        content = sbx.files.read("/home/user/download_test.txt")
+        assert content == test_content, f"内容不匹配: {content}"
+        print(f"✓ 文件内容: {content}")
+        
+        print("✓ 文件下载测试通过")
+        return True
+    finally:
+        sbx.kill()
 
 
 def test_file_write_string():
@@ -83,17 +84,18 @@ def test_file_write_string():
     print("=" * 50)
     
     sbx = Sandbox.create()
-    
-    # 写入字符串
-    sbx.files.write("/home/user/string_test.txt", "直接写入的字符串内容")
-    
-    # 验证
-    content = sbx.files.read("/home/user/string_test.txt")
-    print(f"✓ 写入并读取: {content}")
-    
-    sbx.kill()
-    print("✓ 字符串写入测试通过")
-    return True
+    try:
+        # 写入字符串
+        sbx.files.write("/home/user/string_test.txt", "直接写入的字符串内容")
+        
+        # 验证
+        content = sbx.files.read("/home/user/string_test.txt")
+        print(f"✓ 写入并读取: {content}")
+        
+        print("✓ 字符串写入测试通过")
+        return True
+    finally:
+        sbx.kill()
 
 
 def run_all():

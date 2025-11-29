@@ -33,28 +33,30 @@ plt.show()
 """
     
     sandbox = Sandbox.create()
-    execution = sandbox.run_code(code)
-    
-    if execution.results and len(execution.results) > 0:
-        chart = execution.results[0].chart
-        if chart:
-            print(f"图表类型: {chart.type}")
-            print(f"标题: {chart.title}")
-            print(f"X轴标签: {chart.x_label}")
-            print(f"Y轴标签: {chart.y_label}")
-            print(f"元素数量: {len(chart.elements) if chart.elements else 0}")
-            
-            if chart.elements:
-                for elem in chart.elements:
-                    print(f"  - {elem.label}: {elem.value}")
+    try:
+        execution = sandbox.run_code(code)
+        
+        if execution.results and len(execution.results) > 0:
+            chart = execution.results[0].chart
+            if chart:
+                print(f"图表类型: {chart.type}")
+                print(f"标题: {chart.title}")
+                print(f"X轴标签: {chart.x_label}")
+                print(f"Y轴标签: {chart.y_label}")
+                print(f"元素数量: {len(chart.elements) if chart.elements else 0}")
+                
+                if chart.elements:
+                    for elem in chart.elements:
+                        print(f"  - {elem.label}: {elem.value}")
+            else:
+                print("未检测到图表结构")
         else:
-            print("未检测到图表结构")
-    else:
-        print("无结果返回")
-    
-    sandbox.kill()
-    print("✓ 柱状图测试通过")
-    return True
+            print("无结果返回")
+        
+        print("✓ 柱状图测试通过")
+        return True
+    finally:
+        sandbox.kill()
 
 
 def test_line_chart():
@@ -80,13 +82,15 @@ plt.show()
 """
     
     sandbox = Sandbox.create()
-    execution = sandbox.run_code(code)
-    
-    print(f"结果数量: {len(execution.results) if execution.results else 0}")
-    
-    sandbox.kill()
-    print("✓ 折线图测试通过")
-    return True
+    try:
+        execution = sandbox.run_code(code)
+        
+        print(f"结果数量: {len(execution.results) if execution.results else 0}")
+        
+        print("✓ 折线图测试通过")
+        return True
+    finally:
+        sandbox.kill()
 
 
 def test_pie_chart():
@@ -109,13 +113,15 @@ plt.show()
 """
     
     sandbox = Sandbox.create()
-    execution = sandbox.run_code(code)
-    
-    print(f"结果数量: {len(execution.results) if execution.results else 0}")
-    
-    sandbox.kill()
-    print("✓ 饼图测试通过")
-    return True
+    try:
+        execution = sandbox.run_code(code)
+        
+        print(f"结果数量: {len(execution.results) if execution.results else 0}")
+        
+        print("✓ 饼图测试通过")
+        return True
+    finally:
+        sandbox.kill()
 
 
 def run_all():

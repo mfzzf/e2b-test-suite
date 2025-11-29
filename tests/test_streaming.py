@@ -33,18 +33,19 @@ print("第三行输出到 stdout")
     errors = []
     
     sandbox = Sandbox.create()
-    sandbox.run_code(
-        code,
-        on_error=lambda error: errors.append(error),
-        on_stdout=lambda data: (stdout_lines.append(data), print(f"stdout: {data}")),
-        on_stderr=lambda data: (stderr_lines.append(data), print(f"stderr: {data}")),
-    )
-    
-    print(f"\n收到 stdout 行数: {len(stdout_lines)}")
-    print(f"收到 stderr 行数: {len(stderr_lines)}")
-    print(f"错误数: {len(errors)}")
-    
-    sandbox.kill()
+    try:
+        sandbox.run_code(
+            code,
+            on_error=lambda error: errors.append(error),
+            on_stdout=lambda data: (stdout_lines.append(data.line), print(f"stdout: {data.line}")),
+            on_stderr=lambda data: (stderr_lines.append(data.line), print(f"stderr: {data.line}")),
+        )
+        
+        print(f"\n收到 stdout 行数: {len(stdout_lines)}")
+        print(f"收到 stderr 行数: {len(stderr_lines)}")
+        print(f"错误数: {len(errors)}")
+    finally:
+        sandbox.kill()
     print("✓ 流式输出测试通过")
     return True
 
@@ -64,13 +65,14 @@ print("完成!")
 """
     
     sandbox = Sandbox.create()
-    sandbox.run_code(
-        code,
-        on_stdout=lambda data: print(f"  {data.strip()}"),
-    )
-    
-    sandbox.kill()
-    print("✓ 长时间运行输出测试通过")
+    try:
+        sandbox.run_code(
+            code,
+            on_stdout=lambda data: print(f"  {data.line.strip()}"),
+        )
+        print("✓ 长时间运行输出测试通过")
+    finally:
+        sandbox.kill()
     return True
 
 
