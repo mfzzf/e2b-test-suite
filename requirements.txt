@@ -1,0 +1,5 @@
+e2b>=2.3.5
+e2b-code-interpreter>=1.0.0
+e2b-desktop>=1.0.0
+python-dotenv>=1.0.0
+openai>=1.0.0
