@@ -2,10 +2,12 @@
 桌面沙箱测试 - VNC 流、应用启动
 """
 import os
+from pathlib import Path
 from dotenv import load_dotenv
-load_dotenv(override=True)
 
-# 确保环境变量已加载后再导入 e2b
+# 加载项目根目录的 .env 文件
+env_path = Path(__file__).parent.parent / ".env"
+load_dotenv(env_path, override=True)
 from e2b_desktop import Sandbox
 
 

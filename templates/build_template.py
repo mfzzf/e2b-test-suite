@@ -2,10 +2,12 @@
 模板构建脚本 - 构建自定义 E2B 模板
 """
 import os
+from pathlib import Path
 from dotenv import load_dotenv
-load_dotenv(override=True)
 
-# 确保环境变量已加载后再导入 e2b
+# 加载项目根目录的 .env 文件
+env_path = Path(__file__).parent.parent / ".env"
+load_dotenv(env_path, override=True)
 from e2b import Template, CopyItem, default_build_logger, wait_for_timeout
 
 

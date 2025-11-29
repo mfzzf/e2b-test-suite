@@ -4,10 +4,15 @@ E2B 测试套件运行入口
 """
 import os
 import sys
+from pathlib import Path
 
-# 在导入任何 e2b 模块之前加载环境变量
+# 加载项目根目录的 .env 文件
+env_path = Path(__file__).parent / ".env"
 from dotenv import load_dotenv
-load_dotenv(override=True)
+load_dotenv(env_path, override=True)
+
+# 设置环境变量供子模块使用
+os.environ["E2B_ENV_PATH"] = str(env_path)
 
 import argparse
 import traceback
