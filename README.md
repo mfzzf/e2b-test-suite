@@ -26,7 +26,16 @@ e2b-test-suite/
 
 ```bash
 cd e2b-test-suite
+python3 -m venv venv
 pip install -r requirements.txt
+```
+
+## 修改 sdk 代码
+```bash
+vim venv/lib/python3.12/site-packages/e2b/connection_config.py 
+# :154 这两行注释掉 
+# if self.debug:
+         #   return f"localhost:{port}"
 ```
 
 ## 配置
