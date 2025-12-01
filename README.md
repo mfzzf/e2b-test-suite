@@ -6,8 +6,6 @@ E2B (Code Interpreter) 后端服务的测试脚本集合。
 
 ```
 e2b-test-suite/
-├── config/
-│   └── .env.example          # 环境变量配置示例
 ├── tests/
 │   ├── test_sandbox_basic.py      # 基础沙箱测试
 │   ├── test_file_operations.py    # 文件上传下载测试
