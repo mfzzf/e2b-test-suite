@@ -20,9 +20,9 @@ from ucloud_agentbox import Sandbox, AsyncSandbox
 @pytest.fixture(scope="session")
 def api_key() -> str:
     """获取 API Key"""
-    key = os.environ.get("AGENTBOX_API_KEY") or os.environ.get("E2B_API_KEY")
+    key = os.environ.get("AGENTBOX_API_KEY")
     if not key:
-        pytest.skip("AGENTBOX_API_KEY or E2B_API_KEY not set")
+        pytest.skip("AGENTBOX_API_KEY not set")
     return key
 
 
