@@ -20,7 +20,7 @@ def test_write_string():
     print("测试: 写入字符串")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         content = "Hello, AgentBox!"
         result = sbx.files.write("/home/user/test.txt", content)
@@ -39,7 +39,7 @@ def test_write_bytes():
     print("测试: 写入二进制数据")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         content = b"Binary content \x00\x01\x02\x03"
         result = sbx.files.write("/home/user/binary.bin", content)
@@ -58,7 +58,7 @@ def test_write_file_stream():
     print("测试: 流式写入")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 使用 BytesIO 模拟文件流
         stream = io.BytesIO(b"Stream content from BytesIO")
@@ -78,7 +78,7 @@ def test_write_files_batch():
     print("测试: 批量写入多文件")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         files = [
             {"path": "/home/user/batch1.txt", "data": "Content 1"},
@@ -103,7 +103,7 @@ def test_read_text():
     print("测试: 读取文本内容")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 先写入
         original_content = "Hello, 你好, العربية"
@@ -126,7 +126,7 @@ def test_read_bytes():
     print("测试: 读取二进制内容")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 先写入二进制
         original = b"\x00\x01\x02\x03\x04\x05"
@@ -149,7 +149,7 @@ def test_read_stream():
     print("测试: 流式读取")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 写入较大内容
         content = "A" * 10000
@@ -174,7 +174,7 @@ def test_list_directory():
     print("测试: 列出目录")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建一些文件
         sbx.files.write("/home/user/list_test/a.txt", "a")
@@ -199,7 +199,7 @@ def test_list_directory_depth():
     print("测试: 递归列出目录")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建嵌套结构
         sbx.files.write("/home/user/nested/level1/file1.txt", "1")
@@ -223,7 +223,7 @@ def test_file_exists():
     print("测试: 检查文件存在")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建文件
         sbx.files.write("/home/user/exists.txt", "exists")
@@ -248,7 +248,7 @@ def test_get_file_info():
     print("测试: 获取文件信息")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建文件
         content = "Info test content"
@@ -279,7 +279,7 @@ def test_remove_file():
     print("测试: 删除文件")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建文件
         sbx.files.write("/home/user/to_remove.txt", "remove me")
@@ -304,7 +304,7 @@ def test_remove_directory():
     print("测试: 删除目录")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建目录和文件
         sbx.files.write("/home/user/dir_to_remove/file.txt", "content")
@@ -329,7 +329,7 @@ def test_rename_file():
     print("测试: 重命名文件")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建文件
         sbx.files.write("/home/user/original.txt", "content")
@@ -355,7 +355,7 @@ def test_make_directory():
     print("测试: 创建目录")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建目录
         result = sbx.files.make_dir("/home/user/new_directory")
@@ -379,7 +379,7 @@ def test_make_nested_directory():
     print("测试: 创建嵌套目录")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建多级嵌套目录
         sbx.files.make_dir("/home/user/nested/level1/level2/level3")
@@ -403,7 +403,7 @@ def test_watch_directory():
     print("测试: 目录变更监听")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建目录
         sbx.files.make_dir("/home/user/watch_dir")

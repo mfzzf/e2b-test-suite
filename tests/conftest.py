@@ -29,7 +29,7 @@ def api_key() -> str:
 @pytest.fixture
 def sandbox() -> Generator[Sandbox, None, None]:
     """创建一个沙箱，测试结束后自动销毁"""
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     yield sbx
     try:
         sbx.kill()
@@ -40,7 +40,7 @@ def sandbox() -> Generator[Sandbox, None, None]:
 @pytest.fixture
 def sandbox_with_template() -> Generator[Sandbox, None, None]:
     """使用 base 模板创建沙箱"""
-    sbx = Sandbox.create(template="base", timeout=300)
+    sbx = Sandbox.create(template="base", timeout=60)
     yield sbx
     try:
         sbx.kill()
@@ -51,7 +51,7 @@ def sandbox_with_template() -> Generator[Sandbox, None, None]:
 @pytest.fixture
 async def async_sandbox() -> AsyncSandbox:
     """创建异步沙箱"""
-    sbx = await AsyncSandbox.create(timeout=300)
+    sbx = await AsyncSandbox.create(timeout=60)
     yield sbx
     try:
         await sbx.kill()

@@ -19,7 +19,7 @@ def test_pty_create():
     print("测试: 创建 PTY")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建 PTY
         size = PtySize(rows=24, cols=80)
@@ -43,7 +43,7 @@ def test_pty_send_stdin():
     print("测试: 发送输入到 PTY")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建 PTY
         size = PtySize(rows=24, cols=80)
@@ -71,7 +71,7 @@ def test_pty_resize():
     print("测试: 调整 PTY 大小")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建 PTY
         initial_size = PtySize(rows=24, cols=80)
@@ -98,7 +98,7 @@ def test_pty_kill():
     print("测试: 终止 PTY")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建 PTY
         size = PtySize(rows=24, cols=80)
@@ -127,7 +127,7 @@ def test_pty_interactive():
     print("测试: 交互式命令执行")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建 PTY
         size = PtySize(rows=24, cols=80)
@@ -165,7 +165,7 @@ def test_pty_with_envs():
     print("测试: 带环境变量的 PTY")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建带环境变量的 PTY
         size = PtySize(rows=24, cols=80)
@@ -194,7 +194,7 @@ def test_pty_with_cwd():
     print("测试: 指定工作目录的 PTY")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建目录
         sbx.files.make_dir("/home/user/pty_cwd")

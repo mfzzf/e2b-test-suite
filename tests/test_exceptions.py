@@ -79,7 +79,7 @@ def test_timeout_exception():
     print("测试: 超时异常")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 尝试执行超时的命令 (设置很短的超时)
         try:
@@ -107,7 +107,7 @@ def test_file_not_found():
     print("测试: 文件不存在")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 尝试读取不存在的文件
         try:
@@ -174,7 +174,7 @@ def test_command_exit_exception():
     print("测试: 命令退出异常")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 执行失败的命令
         result = sbx.commands.run("exit 1")
@@ -193,7 +193,7 @@ def test_invalid_file_path():
     print("测试: 无效文件路径")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 尝试写入无效路径
         try:
@@ -216,7 +216,7 @@ def test_sandbox_already_killed():
     print("测试: 已销毁沙箱操作")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     sbx.kill()
     
     try:

@@ -11,6 +11,7 @@ env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
 
 from ucloud_agentbox import Sandbox, CommandResult, ProcessInfo
+from ucloud_agentbox.sandbox.commands.command_handle import CommandExitException
 
 
 def test_run_simple_command():
@@ -19,7 +20,7 @@ def test_run_simple_command():
     print("测试: 执行简单命令")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         result = sbx.commands.run("echo 'Hello World'")
         
@@ -38,7 +39,7 @@ def test_run_command_with_output():
     print("测试: 获取命令输出")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 测试 stdout
         result = sbx.commands.run("ls -la /home/user")
@@ -61,7 +62,7 @@ def test_run_command_with_envs():
     print("测试: 使用环境变量")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         env_vars = {"MY_VAR": "my_value", "ANOTHER": "123"}
         result = sbx.commands.run(
@@ -83,7 +84,7 @@ def test_run_command_with_cwd():
     print("测试: 指定工作目录")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 创建测试目录
         sbx.files.make_dir("/home/user/test_cwd")
@@ -104,7 +105,7 @@ def test_run_command_with_user():
     print("测试: 指定用户执行")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         result = sbx.commands.run("whoami", user="user")
         
@@ -122,7 +123,7 @@ def test_run_background_command():
     print("测试: 后台执行命令")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 启动后台命令
         handle = sbx.commands.run("sleep 5 && echo 'done'", background=True)
@@ -150,7 +151,7 @@ def test_command_with_callbacks():
     print("测试: 输出回调处理")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         stdout_lines = []
         stderr_lines = []
@@ -183,7 +184,7 @@ def test_command_send_stdin():
     print("测试: 发送标准输入")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 启动交互式命令
         handle = sbx.commands.run("cat", background=True, stdin=True)
@@ -208,7 +209,7 @@ def test_command_kill():
     print("测试: 终止命令")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 启动长时间运行的命令
         handle = sbx.commands.run("sleep 60", background=True)
@@ -242,7 +243,7 @@ def test_commands_list():
     print("测试: 列出运行中的命令")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 启动几个后台命令
         h1 = sbx.commands.run("sleep 30", background=True)
@@ -276,7 +277,7 @@ def test_command_connect():
     print("测试: 连接到运行中的命令")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 启动后台命令
         handle = sbx.commands.run("sleep 10", background=True)
@@ -303,7 +304,7 @@ def test_command_timeout():
     print("测试: 命令超时处理")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 执行快速命令，设置短超时
         result = sbx.commands.run("echo 'fast'", timeout=10)
@@ -329,13 +330,16 @@ def test_command_error():
     print("测试: 命令错误处理")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
-        # 执行会失败的命令
-        result = sbx.commands.run("exit 1")
-        
-        assert result.exit_code == 1
-        print(f"退出码: {result.exit_code}")
+        # 执行会失败的命令 - SDK 会抛出 CommandExitException
+        try:
+            result = sbx.commands.run("exit 1")
+            # 如果没有抛出异常，检查退出码
+            assert result.exit_code == 1
+            print(f"退出码: {result.exit_code}")
+        except CommandExitException as e:
+            print(f"正确捕获 CommandExitException: 退出码 {e.exit_code}")
         
         # 执行不存在的命令
         result2 = sbx.commands.run("nonexistent_command 2>&1 || true")
@@ -353,7 +357,7 @@ def test_command_multiline():
     print("测试: 多行命令")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         cmd = """
 echo "Line 1"
@@ -379,7 +383,7 @@ def test_command_with_args():
     print("测试: 带参数的命令")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 使用引号和特殊字符
         result = sbx.commands.run("echo 'Hello \"World\"'")

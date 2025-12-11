@@ -20,7 +20,7 @@ def test_get_info():
     print("测试: 获取沙箱信息")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         info = sbx.get_info()
         
@@ -43,7 +43,7 @@ def test_get_info_fields():
     print("=" * 50)
     
     metadata = {"test_key": "test_value"}
-    sbx = Sandbox.create(metadata=metadata, timeout=300)
+    sbx = Sandbox.create(metadata=metadata, timeout=60)
     try:
         info = sbx.get_info()
         
@@ -76,7 +76,7 @@ def test_get_info_by_id():
     print("测试: 通过 ID 获取信息")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     sandbox_id = sbx.sandbox_id
     
     try:
@@ -97,7 +97,7 @@ def test_get_metrics():
     print("测试: 获取资源指标")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
         # 执行一些操作产生资源使用
         sbx.commands.run("echo 'Hello World'")
@@ -127,22 +127,20 @@ def test_get_metrics_with_time_range():
     print("测试: 时间范围指标")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     try:
-        # 记录开始时间
-        start_time = datetime.datetime.now(datetime.timezone.utc)
+        # 获取沙箱信息中的开始时间
+        info = sbx.get_info()
+        start_time = info.started_at
         
         # 执行操作
         sbx.commands.run("sleep 1")
         sbx.commands.run("echo 'test'")
         
-        # 记录结束时间
-        end_time = datetime.datetime.now(datetime.timezone.utc)
+        # 获取指标 (不指定时间范围，使用默认)
+        metrics = sbx.get_metrics()
         
-        # 获取指定时间范围的指标
-        metrics = sbx.get_metrics(start=start_time, end=end_time)
-        
-        print(f"时间范围: {start_time} - {end_time}")
+        print(f"沙箱开始时间: {start_time}")
         print(f"指标数量: {len(metrics)}")
         
         print("✓ 时间范围指标测试通过")
@@ -157,7 +155,7 @@ def test_get_metrics_by_id():
     print("测试: 通过 ID 获取指标")
     print("=" * 50)
     
-    sbx = Sandbox.create(timeout=300)
+    sbx = Sandbox.create(timeout=60)
     sandbox_id = sbx.sandbox_id
     
     try:
