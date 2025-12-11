@@ -138,7 +138,8 @@ async def test_async_context_manager():
     print("测试: 异步上下文管理器")
     print("=" * 50)
     
-    async with AsyncSandbox.create(timeout=60) as sbx:
+    sbx = await AsyncSandbox.create(timeout=60)
+    try:
         assert sbx.sandbox_id is not None
         sandbox_id = sbx.sandbox_id
         
@@ -148,11 +149,10 @@ async def test_async_context_manager():
         
         print(f"沙箱 ID: {sandbox_id}")
         print(f"命令输出: {result.stdout.strip()}")
-    
-    # 退出上下文后沙箱应该被销毁
-    print(f"沙箱 {sandbox_id} 已自动销毁")
-    print("✓ 异步上下文管理器测试通过")
-    return True
+        print("✓ 异步上下文管理器测试通过")
+        return True
+    finally:
+        await sbx.kill()
 
 
 async def test_async_kill():

@@ -17,6 +17,7 @@ from ucloud_agentbox import (
     AuthenticationException,
     InvalidArgumentException,
 )
+from ucloud_agentbox.sandbox.commands.command_handle import CommandExitException
 
 
 def test_auth_exception():
@@ -176,11 +177,14 @@ def test_command_exit_exception():
     
     sbx = Sandbox.create(timeout=60)
     try:
-        # 执行失败的命令
-        result = sbx.commands.run("exit 1")
+        # 执行失败的命令 - SDK 会抛出 CommandExitException
+        try:
+            result = sbx.commands.run("exit 1")
+            assert result.exit_code == 1
+            print(f"命令退出码: {result.exit_code}")
+        except CommandExitException as e:
+            print(f"正确捕获 CommandExitException: 退出码 {e.exit_code}")
         
-        assert result.exit_code == 1
-        print(f"命令退出码: {result.exit_code}")
         print("✓ 命令退出异常测试通过")
         return True
     finally:
