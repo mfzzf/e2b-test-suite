@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-E2B 测试套件运行入口
+UCloud AgentBox SDK 测试套件运行入口
 """
 import os
 import sys
@@ -19,6 +19,16 @@ import traceback
 
 # 测试模块映射
 TEST_MODULES = {
+    # 新的 ucloud-agentbox SDK 测试
+    "sandbox_lifecycle": "tests.test_sandbox_lifecycle",
+    "sandbox_info": "tests.test_sandbox_info",
+    "filesystem_complete": "tests.test_filesystem_complete",
+    "commands_complete": "tests.test_commands_complete",
+    "pty_complete": "tests.test_pty_complete",
+    "async_sandbox": "tests.test_async_sandbox",
+    "template_build": "tests.test_template_build",
+    "exceptions": "tests.test_exceptions",
+    # 旧的测试模块 (兼容)
     "sandbox_basic": "tests.test_sandbox_basic",
     "file_operations": "tests.test_file_operations",
     "code_execution": "tests.test_code_execution",
@@ -27,6 +37,17 @@ TEST_MODULES = {
     "desktop": "tests.test_desktop",
     "openai": "tests.test_openai_integration",
 }
+
+# 新 SDK 核心测试组
+CORE_TESTS = [
+    "sandbox_lifecycle",
+    "sandbox_info",
+    "filesystem_complete",
+    "commands_complete",
+    "pty_complete",
+    "async_sandbox",
+    "exceptions",
+]
 
 
 def run_test(test_name: str) -> bool:
@@ -65,6 +86,16 @@ def run_all_tests() -> dict:
     return results
 
 
+def run_core_tests() -> dict:
+    """运行核心测试"""
+    results = {}
+    
+    for test_name in CORE_TESTS:
+        results[test_name] = run_test(test_name)
+    
+    return results
+
+
 def print_summary(results: dict):
     """打印测试摘要"""
     print("\n" + "=" * 60)
@@ -84,7 +115,7 @@ def print_summary(results: dict):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="E2B 测试套件")
+    parser = argparse.ArgumentParser(description="UCloud AgentBox SDK 测试套件")
     parser.add_argument(
         "--test", "-t",
         type=str,
@@ -95,22 +126,50 @@ def main():
         action="store_true",
         help="列出所有可用测试"
     )
+    parser.add_argument(
+        "--core", "-c",
+        action="store_true",
+        help="只运行核心测试"
+    )
+    parser.add_argument(
+        "--all", "-a",
+        action="store_true",
+        help="运行所有测试"
+    )
     
     args = parser.parse_args()
     
     if args.list:
         print("可用测试:")
-        for name in TEST_MODULES:
+        print("\n核心测试 (ucloud-agentbox SDK):")
+        for name in CORE_TESTS:
             print(f"  - {name}")
+        print("\n旧版测试 (兼容):")
+        for name in TEST_MODULES:
+            if name not in CORE_TESTS and name != "template_build":
+                print(f"  - {name}")
+        print("\n模板测试 (需要特殊权限):")
+        print("  - template_build")
         return
     
     if args.test:
         success = run_test(args.test)
         sys.exit(0 if success else 1)
-    else:
+    elif args.core:
+        results = run_core_tests()
+        print_summary(results)
+        failed = sum(1 for v in results.values() if not v)
+        sys.exit(0 if failed == 0 else 1)
+    elif args.all:
         results = run_all_tests()
         print_summary(results)
-        
+        failed = sum(1 for v in results.values() if not v)
+        sys.exit(0 if failed == 0 else 1)
+    else:
+        # 默认运行核心测试
+        print("运行核心测试 (使用 --all 运行所有测试)")
+        results = run_core_tests()
+        print_summary(results)
         failed = sum(1 for v in results.values() if not v)
         sys.exit(0 if failed == 0 else 1)
 
