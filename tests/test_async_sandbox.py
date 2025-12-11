@@ -238,7 +238,7 @@ async def test_async_sandbox_list():
     sbx = await AsyncSandbox.create(timeout=60)
     
     try:
-        paginator = await AsyncSandbox.list()
+        paginator = AsyncSandbox.list()
         sandboxes = await paginator.next_items()
         
         print(f"运行中的沙箱数: {len(sandboxes)}")
