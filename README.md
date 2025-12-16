@@ -7,15 +7,17 @@ UCloud AgentBox (`ucloud-agentbox`) Python SDK 的完整测试脚本集合。
 ```
 e2b-test-suite/
 ├── tests/
-│   ├── conftest.py               # pytest 配置和共享 fixtures
-│   ├── test_sandbox_lifecycle.py # 沙箱生命周期测试 (12 tests)
-│   ├── test_sandbox_info.py      # 沙箱信息监控测试 (6 tests)
-│   ├── test_filesystem_complete.py # 完整文件系统测试 (17 tests)
-│   ├── test_commands_complete.py # 完整命令执行测试 (15 tests)
-│   ├── test_pty_complete.py      # PTY 伪终端测试 (7 tests)
-│   ├── test_async_sandbox.py     # 异步 API 测试 (10 tests)
-│   ├── test_template_build.py    # 模板构建测试 (3 tests)
-│   ├── test_exceptions.py        # 异常处理测试 (9 tests)
+│   ├── conftest.py                      # pytest 配置和共享 fixtures
+│   ├── test_sandbox_lifecycle.py        # 沙箱生命周期测试 (12 tests)
+│   ├── test_sandbox_info.py             # 沙箱信息监控测试 (6 tests)
+│   ├── test_filesystem_complete.py      # 完整文件系统测试 (17 tests)
+│   ├── test_commands_complete.py        # 完整命令执行测试 (15 tests)
+│   ├── test_pty_complete.py             # PTY 伪终端测试 (7 tests)
+│   ├── test_async_sandbox.py            # 异步 API 测试 (10 tests)
+│   ├── test_template_build.py           # 模板构建测试 (3 tests)
+│   ├── test_exceptions.py               # 异常处理测试 (9 tests)
+│   ├── test_code_interpreter_context.py # 代码执行上下文测试 (5 tests)
+│   ├── test_desktop_interaction.py      # 桌面交互测试 (10 tests)
 │   └── (旧版测试文件...)
 ├── templates/
 │   └── build_template.py         # 模板构建脚本
@@ -83,6 +85,8 @@ pytest tests/ -v
 | async_sandbox | AsyncSandbox 异步 API 完整测试 | 10 |
 | template_build | 模板构建与状态查询 (需特殊权限) | 3 |
 | exceptions | 异常处理和边界情况测试 | 9 |
+| code_interpreter_context | 代码执行上下文管理、有状态执行 | 5 |
+| desktop_interaction | 桌面交互：截图、鼠标、键盘控制 | 10 |
 
 ## 旧版兼容测试
 
