@@ -64,7 +64,7 @@ def build_desktop_template():
     
     template = (
         Template(file_context_path="files")
-        .from_image("uhub.service.ucloud.cn/clientfzzf/e2b-desktop:v2")
+        .from_image("uhub.service.ucloud.cn/agentbox/e2b-desktop:v1")
         .set_user("user")
         .set_workdir("/home/user")
     )
