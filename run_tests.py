@@ -26,6 +26,7 @@ TEST_MODULES = {
     "pty_complete": "tests.test_pty_complete",
     "async_sandbox": "tests.test_async_sandbox",
     "template_build": "tests.test_template_build",
+    "uhub_registry": "tests.test_uhub_registry",
     "exceptions": "tests.test_exceptions",
 }
 
