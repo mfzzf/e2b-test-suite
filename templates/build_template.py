@@ -38,7 +38,7 @@ def build_code_interpreter_template():
     
     template = (
         Template()
-        .from_image("uhub.service.ucloud.cn/clientfzzf/code-interpreter:v2")
+        .from_image("uhub.service.ucloud.cn/agentbox/code-interpreter:v1")
         .set_start_cmd(
             "'/bin/sh' '-c' 'sudo /root/.jupyter/start-up.sh'",
             wait_for_timeout(25000)

@@ -19,7 +19,6 @@ import traceback
 
 # 测试模块映射
 TEST_MODULES = {
-    # 新的 ucloud-agentbox SDK 测试
     "sandbox_lifecycle": "tests.test_sandbox_lifecycle",
     "sandbox_info": "tests.test_sandbox_info",
     "filesystem_complete": "tests.test_filesystem_complete",
@@ -28,14 +27,6 @@ TEST_MODULES = {
     "async_sandbox": "tests.test_async_sandbox",
     "template_build": "tests.test_template_build",
     "exceptions": "tests.test_exceptions",
-    # 旧的测试模块 (兼容)
-    "sandbox_basic": "tests.test_sandbox_basic",
-    "file_operations": "tests.test_file_operations",
-    "code_execution": "tests.test_code_execution",
-    "streaming": "tests.test_streaming",
-    "charts": "tests.test_charts",
-    "desktop": "tests.test_desktop",
-    "openai": "tests.test_openai_integration",
 }
 
 # 新 SDK 核心测试组
@@ -144,10 +135,6 @@ def main():
         print("\n核心测试 (ucloud-agentbox SDK):")
         for name in CORE_TESTS:
             print(f"  - {name}")
-        print("\n旧版测试 (兼容):")
-        for name in TEST_MODULES:
-            if name not in CORE_TESTS and name != "template_build":
-                print(f"  - {name}")
         print("\n模板测试 (需要特殊权限):")
         print("  - template_build")
         return
