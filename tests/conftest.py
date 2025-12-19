@@ -14,7 +14,7 @@ env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
 
 # 导入 SDK
-from ucloud_agentbox import Sandbox, AsyncSandbox
+from ucloud_sandbox import Sandbox, AsyncSandbox
 
 
 @pytest.fixture(scope="session")

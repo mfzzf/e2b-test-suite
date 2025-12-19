@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
 
-from ucloud_agentbox import Template, TemplateBase, LogEntry
+from ucloud_sandbox import Template, TemplateBase, LogEntry
 
 
 # 简单的测试模板

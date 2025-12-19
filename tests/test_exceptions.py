@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
 
-from ucloud_agentbox import (
+from ucloud_sandbox import (
     Sandbox,
     SandboxException,
     TimeoutException,
@@ -17,7 +17,7 @@ from ucloud_agentbox import (
     AuthenticationException,
     InvalidArgumentException,
 )
-from ucloud_agentbox.sandbox.commands.command_handle import CommandExitException
+from ucloud_sandbox.sandbox.commands.command_handle import CommandExitException
 
 
 def test_auth_exception():

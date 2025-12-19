@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 # 加载项目根目录的 .env 文件
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
-from e2b_code_interpreter import Sandbox
+from ucloud_sandbox.code_interpreter import Sandbox
 
 
 def test_create_code_context():

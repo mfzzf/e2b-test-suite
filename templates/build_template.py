@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 # 加载项目根目录的 .env 文件
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
-from e2b import Template, CopyItem, default_build_logger, wait_for_timeout
+from ucloud_sandbox import Template, CopyItem, default_build_logger, wait_for_timeout
 
 
 def build_base_template():
@@ -23,7 +23,7 @@ def build_base_template():
         template,
         alias="base",
         cpu_count=2,
-        memory_mb=512,
+        memory_mb=2048,
         on_build_logs=default_build_logger(),
     )
     

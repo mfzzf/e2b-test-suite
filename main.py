@@ -1,7 +1,7 @@
 # main.py
 from dotenv import load_dotenv
 load_dotenv()
-from e2b_code_interpreter import Sandbox
+from ucloud_sandbox.code_interpreter import Sandbox
 import time
 
 # Import for logs API
@@ -20,8 +20,8 @@ info = sbx.get_info()
 print("sandbox info:",info)
 
 # # time.sleep(10)
-files = sbx.files.list("/etc")
-print(files)
+# files = sbx.files.list("/etc")
+# print(files)
 execution = sbx.commands.run("echo 'hello!'")
 print(execution)
 

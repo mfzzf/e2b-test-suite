@@ -10,8 +10,8 @@ from dotenv import load_dotenv
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
 
-from ucloud_agentbox import Sandbox, CommandResult, ProcessInfo
-from ucloud_agentbox.sandbox.commands.command_handle import CommandExitException
+from ucloud_sandbox import Sandbox, CommandResult, ProcessInfo
+from ucloud_sandbox.sandbox.commands.command_handle import CommandExitException
 
 
 def test_run_simple_command():

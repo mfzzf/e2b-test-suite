@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
 
-from ucloud_agentbox import Sandbox, FileType, EntryInfo
+from ucloud_sandbox import Sandbox, FileType, EntryInfo
 
 
 def test_write_string():

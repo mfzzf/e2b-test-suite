@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
 
-from ucloud_agentbox import Sandbox, SandboxPaginator
+from ucloud_sandbox import Sandbox, SandboxPaginator
 
 
 def test_create_sandbox():
