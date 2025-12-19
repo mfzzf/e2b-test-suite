@@ -175,12 +175,17 @@ def test_get_metrics_by_id():
 
 def run_all():
     """运行所有信息监控测试"""
-    test_get_info()
-    test_get_info_fields()
-    test_get_info_by_id()
-    test_get_metrics()
-    test_get_metrics_with_time_range()
-    test_get_metrics_by_id()
+    from tests.conftest import run_tests_safely
+    
+    tests = [
+        test_get_info,
+        test_get_info_fields,
+        test_get_info_by_id,
+        test_get_metrics,
+        test_get_metrics_with_time_range,
+        test_get_metrics_by_id,
+    ]
+    run_tests_safely(tests, "sandbox_info")
 
 
 if __name__ == "__main__":

@@ -67,3 +67,49 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "beta: marks tests that use beta features"
     )
+
+
+def run_tests_safely(tests: list, module_name: str = ""):
+    """
+    安全地运行测试列表，单个测试失败不会终止其他测试
+    
+    Args:
+        tests: 测试函数列表
+        module_name: 模块名称（用于打印）
+    
+    Returns:
+        tuple: (passed_tests, failed_tests) - 通过和失败的测试列表
+    """
+    import traceback
+    
+    passed = []
+    failed = []
+    
+    for test_func in tests:
+        test_name = test_func.__name__
+        try:
+            test_func()
+            passed.append(test_name)
+        except Exception as e:
+            failed.append((test_name, str(e)))
+            print(f"\n❌ 测试 {test_name} 失败: {e}")
+            traceback.print_exc()
+            print()  # 空行分隔
+    
+    # 打印总结
+    print("\n" + "=" * 60)
+    print(f"测试总结{f' ({module_name})' if module_name else ''}")
+    print("=" * 60)
+    print(f"✅ 通过: {len(passed)}")
+    for name in passed:
+        print(f"   - {name}")
+    print(f"❌ 失败: {len(failed)}")
+    for name, error in failed:
+        print(f"   - {name}: {error[:50]}...")
+    print("=" * 60)
+    
+    # 如果有失败的测试，抛出异常报告（但所有测试都已运行完）
+    if failed:
+        raise Exception(f"{len(failed)} 个测试失败: {[name for name, _ in failed]}")
+    
+    return passed, failed

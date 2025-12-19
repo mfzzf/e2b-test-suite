@@ -239,16 +239,21 @@ def test_sandbox_already_killed():
 
 def run_all():
     """运行所有异常处理测试"""
-    # 跳过认证测试，因为会干扰其他测试
-    # test_auth_exception()
-    test_not_found_exception()
-    # test_timeout_exception()  # 可能需要较长时间
-    test_file_not_found()
-    test_invalid_sandbox_id()
-    test_kill_nonexistent_sandbox()
-    test_command_exit_exception()
-    # test_invalid_file_path()  # 可能因路径规范化而不抛出异常
-    test_sandbox_already_killed()
+    from tests.conftest import run_tests_safely
+    
+    tests = [
+        # 跳过认证测试，因为会干扰其他测试
+        # test_auth_exception,
+        test_not_found_exception,
+        # test_timeout_exception,  # 可能需要较长时间
+        test_file_not_found,
+        test_invalid_sandbox_id,
+        test_kill_nonexistent_sandbox,
+        test_command_exit_exception,
+        # test_invalid_file_path,  # 可能因路径规范化而不抛出异常
+        test_sandbox_already_killed,
+    ]
+    run_tests_safely(tests, "exceptions")
 
 
 if __name__ == "__main__":

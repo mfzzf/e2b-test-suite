@@ -218,13 +218,18 @@ def test_pty_with_cwd():
 
 def run_all():
     """运行所有 PTY 测试"""
-    test_pty_create()
-    test_pty_send_stdin()
-    test_pty_resize()
-    test_pty_kill()
-    test_pty_interactive()
-    test_pty_with_envs()
-    test_pty_with_cwd()
+    from tests.conftest import run_tests_safely
+    
+    tests = [
+        test_pty_create,
+        test_pty_send_stdin,
+        test_pty_resize,
+        test_pty_kill,
+        test_pty_interactive,
+        test_pty_with_envs,
+        test_pty_with_cwd,
+    ]
+    run_tests_safely(tests, "pty_complete")
 
 
 if __name__ == "__main__":

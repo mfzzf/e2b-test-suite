@@ -131,12 +131,17 @@ def test_get_build_status():
 
 def run_all():
     """运行所有模板测试"""
+    from tests.conftest import run_tests_safely
+    
     print("\n⚠ 注意: 模板构建测试需要有效的 API Key 和构建权限")
     print("如果没有权限，测试将跳过\n")
     
-    test_template_build()
-    test_template_build_in_background()
-    test_get_build_status()
+    tests = [
+        test_template_build,
+        test_template_build_in_background,
+        test_get_build_status,
+    ]
+    run_tests_safely(tests, "template_build")
 
 
 if __name__ == "__main__":

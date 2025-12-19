@@ -289,17 +289,51 @@ async def test_async_concurrent_operations():
 
 def run_all():
     """运行所有异步测试"""
+    import traceback
+    
     async def run_tests():
-        await test_async_create()
-        await test_async_create_with_options()
-        await test_async_files_operations()
-        await test_async_commands_run()
-        await test_async_context_manager()
-        await test_async_kill()
-        await test_async_connect()
-        await test_async_get_info()
-        await test_async_sandbox_list()
-        await test_async_concurrent_operations()
+        tests = [
+            test_async_create,
+            test_async_create_with_options,
+            test_async_files_operations,
+            test_async_commands_run,
+            test_async_context_manager,
+            test_async_kill,
+            test_async_connect,
+            test_async_get_info,
+            test_async_sandbox_list,
+            test_async_concurrent_operations,
+        ]
+        
+        passed = []
+        failed = []
+        
+        for test_func in tests:
+            test_name = test_func.__name__
+            try:
+                await test_func()
+                passed.append(test_name)
+            except Exception as e:
+                failed.append((test_name, str(e)))
+                print(f"\n❌ 测试 {test_name} 失败: {e}")
+                traceback.print_exc()
+                print()  # 空行分隔
+        
+        # 打印总结
+        print("\n" + "=" * 60)
+        print("测试总结 (async_sandbox)")
+        print("=" * 60)
+        print(f"✅ 通过: {len(passed)}")
+        for name in passed:
+            print(f"   - {name}")
+        print(f"❌ 失败: {len(failed)}")
+        for name, error in failed:
+            print(f"   - {name}: {error[:50]}...")
+        print("=" * 60)
+        
+        # 如果有失败的测试，抛出异常报告
+        if failed:
+            raise Exception(f"{len(failed)} 个测试失败: {[name for name, _ in failed]}")
     
     asyncio.run(run_tests())
 

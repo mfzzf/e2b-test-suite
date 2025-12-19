@@ -445,24 +445,29 @@ def test_watch_directory():
 
 def run_all():
     """运行所有文件系统测试"""
-    test_write_string()
-    test_write_bytes()
-    test_write_file_stream()
-    test_write_files_batch()
-    test_read_text()
-    test_read_bytes()
-    test_read_stream()
-    test_list_directory()
-    test_list_directory_depth()
-    test_file_exists()
-    test_get_file_info()
-    test_remove_file()
-    test_remove_directory()
-    test_rename_file()
-    test_make_directory()
-    test_make_nested_directory()
-    # watch_dir 测试可能需要特殊处理
-    # test_watch_directory()
+    from tests.conftest import run_tests_safely
+    
+    tests = [
+        test_write_string,
+        test_write_bytes,
+        test_write_file_stream,
+        test_write_files_batch,
+        test_read_text,
+        test_read_bytes,
+        test_read_stream,
+        test_list_directory,
+        test_list_directory_depth,
+        test_file_exists,
+        test_get_file_info,
+        test_remove_file,
+        test_remove_directory,
+        test_rename_file,
+        test_make_directory,
+        test_make_nested_directory,
+        # watch_dir 测试可能需要特殊处理
+        # test_watch_directory,
+    ]
+    run_tests_safely(tests, "filesystem_complete")
 
 
 if __name__ == "__main__":

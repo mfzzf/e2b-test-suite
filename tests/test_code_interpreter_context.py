@@ -166,11 +166,16 @@ def test_restart_context():
 
 def run_all():
     """运行所有上下文管理测试"""
-    test_create_code_context()
-    test_stateful_execution()
-    test_context_cwd()
-    test_remove_context()
-    test_restart_context()
+    from tests.conftest import run_tests_safely
+    
+    tests = [
+        test_create_code_context,
+        test_stateful_execution,
+        test_context_cwd,
+        test_remove_context,
+        test_restart_context,
+    ]
+    run_tests_safely(tests, "code_interpreter_context")
 
 
 if __name__ == "__main__":

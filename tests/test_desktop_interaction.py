@@ -281,16 +281,21 @@ def test_drag():
 
 def run_all():
     """运行所有桌面交互测试"""
-    test_screenshot()
-    test_mouse_move()
-    test_left_click()
-    test_double_click()
-    test_right_click()
-    test_keyboard_write()
-    test_keyboard_press()
-    test_screen_size()
-    test_scroll()
-    test_drag()
+    from tests.conftest import run_tests_safely
+    
+    tests = [
+        test_screenshot,
+        test_mouse_move,
+        test_left_click,
+        test_double_click,
+        test_right_click,
+        test_keyboard_write,
+        test_keyboard_press,
+        test_screen_size,
+        test_scroll,
+        test_drag,
+    ]
+    run_tests_safely(tests, "desktop_interaction")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 """
 沙箱生命周期测试 - 创建、连接、暂停、恢复、销毁
 """
+from time import sleep
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -108,7 +109,7 @@ def test_sandbox_connect():
     # 先创建一个沙箱
     sbx1 = Sandbox.create(timeout=60)
     sandbox_id = sbx1.sandbox_id
-    
+    sleep(1)
     try:
         # 使用 ID 连接到同一个沙箱
         sbx2 = Sandbox.connect(sandbox_id)
@@ -259,19 +260,24 @@ def test_beta_pause_and_resume():
 
 def run_all():
     """运行所有生命周期测试"""
-    test_create_sandbox()
-    test_create_sandbox_with_template()
-    test_create_sandbox_with_metadata()
-    test_create_sandbox_with_envs()
-    test_create_sandbox_with_timeout()
-    test_sandbox_connect()
-    test_sandbox_set_timeout()
-    test_sandbox_kill()
-    test_sandbox_is_running()
-    test_sandbox_context_manager()
-    test_sandbox_list()
-    # Beta 功能可能不可用，跳过
-    # test_beta_pause_and_resume()
+    from tests.conftest import run_tests_safely
+    
+    tests = [
+        test_create_sandbox,
+        test_create_sandbox_with_template,
+        test_create_sandbox_with_metadata,
+        test_create_sandbox_with_envs,
+        test_create_sandbox_with_timeout,
+        test_sandbox_connect,
+        test_sandbox_set_timeout,
+        test_sandbox_kill,
+        test_sandbox_is_running,
+        test_sandbox_context_manager,
+        test_sandbox_list,
+        # Beta 功能可能不可用，跳过
+        # test_beta_pause_and_resume,
+    ]
+    run_tests_safely(tests, "sandbox_lifecycle")
 
 
 if __name__ == "__main__":

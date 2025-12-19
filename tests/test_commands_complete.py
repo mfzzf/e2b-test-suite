@@ -402,21 +402,26 @@ def test_command_with_args():
 
 def run_all():
     """运行所有命令执行测试"""
-    test_run_simple_command()
-    test_run_command_with_output()
-    test_run_command_with_envs()
-    test_run_command_with_cwd()
-    test_run_command_with_user()
-    test_run_background_command()
-    test_command_with_callbacks()
-    test_command_send_stdin()
-    test_command_kill()
-    test_commands_list()
-    test_command_connect()
-    test_command_timeout()
-    test_command_error()
-    test_command_multiline()
-    test_command_with_args()
+    from tests.conftest import run_tests_safely
+    
+    tests = [
+        test_run_simple_command,
+        test_run_command_with_output,
+        test_run_command_with_envs,
+        test_run_command_with_cwd,
+        test_run_command_with_user,
+        test_run_background_command,
+        test_command_with_callbacks,
+        test_command_send_stdin,
+        test_command_kill,
+        test_commands_list,
+        test_command_connect,
+        test_command_timeout,
+        test_command_error,
+        test_command_multiline,
+        test_command_with_args,
+    ]
+    run_tests_safely(tests, "commands_complete")
 
 
 if __name__ == "__main__":

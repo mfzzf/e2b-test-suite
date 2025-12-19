@@ -140,29 +140,18 @@ def test_uhub_registry_build():
 
 def run_all():
     """运行所有 UHub 仓库测试"""
+    from tests.conftest import run_tests_safely
+    
     print("\n" + "=" * 60)
     print("UHub 私有仓库测试套件")
     print("=" * 60)
     
-    results = []
-    
-    results.append(("UHub 模板创建", test_uhub_registry_template_creation()))
-    results.append(("UHub JSON 转换", test_uhub_registry_to_json()))
-    results.append(("UHub 模板构建", test_uhub_registry_build()))
-    
-    print("\n" + "=" * 60)
-    print("测试结果汇总")
-    print("=" * 60)
-    
-    passed = 0
-    for name, result in results:
-        status = "✓ 通过" if result else "✗ 失败"
-        print(f"  {name}: {status}")
-        if result:
-            passed += 1
-    
-    print(f"\n总计: {passed}/{len(results)} 通过")
-    return passed == len(results)
+    tests = [
+        test_uhub_registry_template_creation,
+        test_uhub_registry_to_json,
+        test_uhub_registry_build,
+    ]
+    run_tests_safely(tests, "uhub_registry")
 
 
 if __name__ == "__main__":
